@@ -3,8 +3,10 @@
 
 #include <QList>
 #include <QMap>
+#include <QObject>
 #include <QPair>
 #include <QString>
+#include <QStringList>
 
 
 typedef QPair<QString, QString> QStrP;
@@ -12,7 +14,6 @@ typedef QPair<QString, QString> QStrP;
 class Filename;
 class Profile;
 class QColor;
-class QStringList;
 class QUrl;
 class Token;
 

@@ -52,23 +52,11 @@ int main(int argc, char *argv[])
 	app.setOrganizationName("Bionus");
 	app.setOrganizationDomain("bionus.fr.cr");
 
-	qRegisterMetaType<ImageLoader::Size>("ImageLoader::Size");
-
 	qmlRegisterType<StatusBar>("StatusBar", 0, 1, "StatusBar");
 	qmlRegisterType<SyntaxHighlighterHelper>("Grabber", 1, 0, "SyntaxHighlighterHelper");
 	qmlRegisterType<GallerySearchLoader>("Grabber", 1, 0, "GallerySearchLoader");
 	qmlRegisterType<TagSearchLoader>("Grabber", 1, 0, "TagSearchLoader");
 	qmlRegisterType<ImageLoader>("Grabber", 1, 0, "ImageLoader");
-
-	qRegisterMetaType<QSharedPointer<Image>>("QSharedPointer<Image>");
-	qRegisterMetaType<Profile*>("Profile*");
-	qRegisterMetaType<Settings*>("Settings*");
-	qRegisterMetaType<QmlImage*>("QmlImage*");
-	qRegisterMetaType<QList<QmlImage*>>("QList>QmlImage*>");
-	qRegisterMetaType<QmlSite*>("QmlSite*");
-	qRegisterMetaType<QList<QmlSite*>>("QList<QmlSite*>");
-	qRegisterMetaType<QList<QmlAuth*>>("QList<QmlAuth*>");
-	qRegisterMetaType<QList<QmlAuthSettingField*>>("QList<QmlAuthSettingField*>");
 
 	// Copy settings files to writable directory
 	const QStringList toCopy { "sites/", "themes/", "webservices/" };

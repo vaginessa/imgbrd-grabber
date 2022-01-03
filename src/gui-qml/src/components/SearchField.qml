@@ -1,7 +1,7 @@
-import Grabber 1.0
-import QtQml 2.12
-import QtQuick 2.12
-import QtQuick.Controls 2.5
+import Grabber
+import QtQml
+import QtQuick
+import QtQuick.Controls
 
 FocusScope {
     id: root

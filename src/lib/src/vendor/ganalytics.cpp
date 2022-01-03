@@ -213,22 +213,22 @@ QString GAnalytics::Private::getUserAgent()
  */
 QString GAnalytics::Private::getSystemInfo()
 {
-	QString os;
+    QString os;
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)) and (defined(Q_OS_MAC) or defined(Q_OS_WIN))
-	QOperatingSystemVersion ver = QOperatingSystemVersion::current();
-	os = ver.name();
-	int i = ver.segmentCount();
-	if(i > 0) {
-		os += QString(" %1").arg(ver.majorVersion());
-	}
-	if(i > 1) {
-		os += QString(".%1").arg(ver.minorVersion());
-	}
-	if(i > 2) {
-		os += QString(".%1").arg(ver.microVersion());
-	}
+    QOperatingSystemVersion ver = QOperatingSystemVersion::current();
+    os = ver.name();
+    int i = ver.segmentCount();
+    if(i > 0) {
+        os += QString(" %1").arg(ver.majorVersion());
+    }
+    if(i > 1) {
+        os += QString(".%1").arg(ver.minorVersion());
+    }
+    if(i > 2) {
+        os += QString(".%1").arg(ver.microVersion());
+    }
 #elif defined(Q_OS_MAC)
-	QSysInfo::MacVersion version = QSysInfo::macVersion();
+    QSysInfo::MacVersion version = QSysInfo::macVersion();
     switch (version)
     {
     case QSysInfo::MV_9:
@@ -392,7 +392,7 @@ QString GAnalytics::Private::getSystemInfo()
 
     os = system + "; " + release;
 #endif
-	return os;
+    return os;
 }
 
 /**

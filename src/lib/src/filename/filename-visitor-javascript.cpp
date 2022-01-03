@@ -19,10 +19,11 @@ void FilenameVisitorJavaScript::setJavaScriptVariables(QJSEngine &engine, const 
 		const QString &name = it.key();
 		QVariant val = it.value().value();
 
-		if (val.type() == QVariant::StringList || val.type() == QVariant::String) {
+		const auto type = val.metaType().id();
+		if (type == QMetaType::QStringList || type == QMetaType::QString) {
 			QString res;
 
-			if (val.type() == QVariant::StringList) {
+			if (type == QMetaType::QStringList) {
 				QStringList vals = val.toStringList();
 				if (name != "all" && name != "tags") {
 					obj.setProperty(name + "s", engine.toScriptValue(vals));

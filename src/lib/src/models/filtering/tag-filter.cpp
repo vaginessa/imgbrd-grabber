@@ -1,5 +1,5 @@
 #include "tag-filter.h"
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QStringBuilder>
 #include <utility>
 #include "loader/token.h"
@@ -9,7 +9,7 @@ TagFilter::TagFilter(QString tag, bool invert)
 	: Filter(invert), m_tag(std::move(tag))
 {
 	if (m_tag.contains('*')) {
-		m_regexp.reset(new QRegExp(m_tag, Qt::CaseInsensitive, QRegExp::Wildcard));
+		m_regexp.reset(new QRegularExpression(QRegularExpression::fromWildcard(m_tag, Qt::CaseInsensitive)));
 	}
 }
 
@@ -39,7 +39,7 @@ QString TagFilter::match(const QMap<QString, Token> &tokens, bool invert) const
 	// Check if any tag match the filter (case insensitive plain text with wildcards allowed)
 	bool cond = false;
 	for (const QString &tag : tags) {
-		const bool match = m_regexp.isNull() ? tag == m_tag : m_regexp->exactMatch(tag);
+		const bool match = m_regexp.isNull() ? tag == m_tag : m_regexp->match(tag).hasMatch();
 		if (match) {
 			cond = true;
 			break;

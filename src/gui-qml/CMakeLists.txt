@@ -4,13 +4,13 @@ add_definitions(-DGUI=1)
 add_subdirectory(languages)
 
 # Qt libraries
-find_package(Qt5 COMPONENTS Quick Network REQUIRED)
-set(QT_LIBRARIES Qt5::Core Qt5::Quick Qt5::Network)
+find_package(Qt6 COMPONENTS Core Quick Network REQUIRED)
+set(QT_LIBRARIES Qt6::Core Qt6::Quick Qt6::Network)
 
 # Android specials
 if(ANDROID)
-	find_package(Qt5 COMPONENTS AndroidExtras REQUIRED)
-	set(QT_LIBRARIES ${QT_LIBRARIES} Qt5::AndroidExtras)
+	#find_package(Qt6 COMPONENTS AndroidExtras REQUIRED)
+	#set(QT_LIBRARIES ${QT_LIBRARIES} Qt6::AndroidExtras)
 endif()
 
 # Input

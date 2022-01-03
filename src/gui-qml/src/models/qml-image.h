@@ -11,6 +11,8 @@
 #include "models/site.h"
 #include "tags/tag-stylist.h"
 
+Q_MOC_INCLUDE("models/image.h")
+
 
 class Profile;
 class Settings;

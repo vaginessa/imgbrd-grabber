@@ -118,6 +118,7 @@ class Site : public QObject
 		bool m_autoLogin;
 };
 
+Q_DECLARE_METATYPE(Site)
 Q_DECLARE_METATYPE(Site::LoginResult)
 
 #endif // SITE_H

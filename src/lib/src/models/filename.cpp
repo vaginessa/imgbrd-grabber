@@ -95,7 +95,7 @@ QList<QMap<QString, Token>> Filename::expandTokens(QMap<QString, Token> tokens, 
 	const bool isJavascript = m_format.startsWith(QLatin1String("javascript:"));
 	for (const QString &key : tokens.keys()) {
 		const Token &token = tokens[key];
-		if (token.value().type() != QVariant::StringList) {
+		if (token.value().metaType().id() != QMetaType::QStringList) {
 			continue;
 		}
 
@@ -222,7 +222,7 @@ QStringList Filename::path(QMap<QString, Token> tokens, Profile *profile, QStrin
 				const QString last = highest.fileName();
 				const int pos = cRight.indexOf(hasNum);
 				const int len = last.length() - cRight.length() + hasNum.length();
-				num = last.midRef(pos, len).toInt() + 1;
+				num = last.mid(pos, len).toInt() + 1;
 			}
 
 			QString val = executionVisitor.variableToString(var->name, num, var->opts);

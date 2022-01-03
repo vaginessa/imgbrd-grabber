@@ -92,7 +92,7 @@ QJsonObject JsonPrinter::serializeImage(const Image &image) const
 
 	const auto tokens = image.tokens(m_profile);
 	for (auto& key : tokens.keys()) {
-		typedef QVariant::Type Type;
+		typedef QMetaType::Type Type;
 		if (ignoreKeys.contains(key)) {
 			continue;
 		}
@@ -101,27 +101,27 @@ QJsonObject JsonPrinter::serializeImage(const Image &image) const
 		}
 
 		const QVariant& qvalue = tokens.value(key).value();
-		auto type = qvalue.type();
+		auto type = qvalue.metaType().id();
 
-		if (type == QVariant::Type::StringList) {
+		if (type == Type::QStringList) {
 			QStringList l = qvalue.toStringList();
 			if (l.isEmpty()) {
 				continue;
 			}
 			jsObject.insert(key, QJsonArray::fromStringList(l));
-		} else if (type == QVariant::Type::String) {
+		} else if (type == Type::QString) {
 			QString s = qvalue.toString();
 			if (s.isEmpty()) {
 				continue;
 			}
 			jsObject.insert(key, s);
-		} else if (type == Type::Url || type == Type::ULongLong || type == Type::LongLong) {
+		} else if (type == Type::QUrl || type == Type::ULongLong || type == Type::LongLong) {
 			jsObject.insert(key, qvalue.toString());
 		} else if (type == Type::Int) {
 			jsObject.insert(key, qvalue.value<int>());
 		} else if (type == Type::Bool) {
 			jsObject.insert(key, qvalue.value<bool>());
-		} else if (type == Type::DateTime) {
+		} else if (type == Type::QDateTime) {
 			jsObject.insert(key, static_cast<int>(qvalue.value<QDateTime>().toSecsSinceEpoch()));
 		} else {
 			log(QStringLiteral("using generic QVariant::toString for key: %1").arg(key), Logger::Warning);

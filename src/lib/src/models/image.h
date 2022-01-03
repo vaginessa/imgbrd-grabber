@@ -11,6 +11,9 @@
 #include "models/pool.h"
 #include "tags/tag.h"
 
+Q_MOC_INCLUDE("models/profile.h")
+Q_MOC_INCLUDE("models/site.h")
+
 
 class ExtensionRotator;
 class NetworkReply;
@@ -182,7 +185,5 @@ class Image : public QObject, public Downloadable
 };
 
 Q_DECLARE_METATYPE(Image)
-Q_DECLARE_METATYPE(Image::SaveResult)
-Q_DECLARE_METATYPE(Image::LoadTagsResult)
 
 #endif // IMAGE_H

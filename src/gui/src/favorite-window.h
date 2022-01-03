@@ -5,6 +5,8 @@
 #include <QWidget>
 #include "models/favorite.h"
 
+Q_MOC_INCLUDE("models/site.h")
+
 
 namespace Ui
 {

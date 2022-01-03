@@ -3,13 +3,10 @@
 #include <QClipboard>
 #include <QCloseEvent>
 #include <QDesktopServices>
-#include <QDesktopWidget>
 #include <QDir>
 #include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
-#include <QMediaPlayer>
-#include <QMediaPlaylist>
 #include <QMenu>
 #include <QMessageBox>
 #include <QMouseEvent>
@@ -75,27 +72,27 @@ ViewerWindow::ViewerWindow(QList<QSharedPointer<Image>> images, const QSharedPoi
 
 		QShortcut *details = new QShortcut(getKeySequence(m_settings, "keyDetails", Qt::Key_D), this);
 			connect(details, &QShortcut::activated, this, &ViewerWindow::showDetails);
-		QShortcut *saveAs = new QShortcut(getKeySequence(m_settings, "keySaveAs", QKeySequence::SaveAs, Qt::CTRL + Qt::SHIFT + Qt::Key_S), this);
+		QShortcut *saveAs = new QShortcut(getKeySequence(m_settings, "keySaveAs", QKeySequence::SaveAs, Qt::CTRL | Qt::SHIFT | Qt::Key_S), this);
 			connect(saveAs, &QShortcut::activated, this, &ViewerWindow::saveImageAs);
 
-		QShortcut *save = new QShortcut(getKeySequence(m_settings, "keySave", QKeySequence::Save, Qt::CTRL + Qt::Key_S), this);
+		QShortcut *save = new QShortcut(getKeySequence(m_settings, "keySave", QKeySequence::Save, Qt::CTRL | Qt::Key_S), this);
 			connect(save, SIGNAL(activated()), this, SLOT(saveImage()));
-		QShortcut *SNQ = new QShortcut(getKeySequence(m_settings, "keySaveNQuit", Qt::CTRL + Qt::Key_W), this);
+		QShortcut *SNQ = new QShortcut(getKeySequence(m_settings, "keySaveNQuit", Qt::CTRL | Qt::Key_W), this);
 			// Pointer name must not overlap with function name ("saveNQuit"...
 			connect(SNQ, SIGNAL(activated()), this, SLOT(saveNQuit()));
-		QShortcut *open = new QShortcut(getKeySequence(m_settings, "keyOpen", Qt::CTRL + Qt::Key_O), this);
+		QShortcut *open = new QShortcut(getKeySequence(m_settings, "keyOpen", Qt::CTRL | Qt::Key_O), this);
 			connect(open, SIGNAL(activated()), this, SLOT(openSaveDir()));
 
-		QShortcut *saveFav = new QShortcut(getKeySequence(m_settings, "keySaveFav", Qt::CTRL + Qt::ALT + Qt::Key_S), this);
+		QShortcut *saveFav = new QShortcut(getKeySequence(m_settings, "keySaveFav", Qt::CTRL | Qt::ALT | Qt::Key_S), this);
 			connect(saveFav, &QShortcut::activated, this, [this]{saveImage(true);});
-		QShortcut *saveNQuitFav = new QShortcut(getKeySequence(m_settings, "keySaveNQuitFav", Qt::CTRL + Qt::ALT + Qt::Key_W), this);
+		QShortcut *saveNQuitFav = new QShortcut(getKeySequence(m_settings, "keySaveNQuitFav", Qt::CTRL | Qt::ALT | Qt::Key_W), this);
 			connect(saveNQuitFav, &QShortcut::activated, this, [this]{saveNQuit(true);});
-		QShortcut *openFav = new QShortcut(getKeySequence(m_settings, "keyOpenFav", Qt::CTRL + Qt::ALT + Qt::Key_O), this);
+		QShortcut *openFav = new QShortcut(getKeySequence(m_settings, "keyOpenFav", Qt::CTRL | Qt::ALT | Qt::Key_O), this);
 			connect(openFav, &QShortcut::activated, this, [this]{openSaveDir(true);});
 
 		QShortcut *toggleFullscreen = new QShortcut(getKeySequence(m_settings, "keyToggleFullscreen", QKeySequence::FullScreen, Qt::Key_F11), this);
 			connect(toggleFullscreen, &QShortcut::activated, this, &ViewerWindow::toggleFullScreen);
-		QShortcut *copyDataToClipboard = new QShortcut(getKeySequence(m_settings, "keyDataToClipboard", QKeySequence::Copy, Qt::CTRL + Qt::Key_C), this);
+		QShortcut *copyDataToClipboard = new QShortcut(getKeySequence(m_settings, "keyDataToClipboard", QKeySequence::Copy, Qt::CTRL | Qt::Key_C), this);
 			connect(copyDataToClipboard, &QShortcut::activated, this, &ViewerWindow::copyImageDataToClipboard);
 	m_settings->endGroup();
 
@@ -493,7 +490,7 @@ void ViewerWindow::openUrl(const QString &url)
 void ViewerWindow::openPool(const QString &url)
 {
 	if (url.startsWith(QLatin1String("pool:"))) {
-		emit poolClicked(url.rightRef(url.length() - 5).toInt(), m_image->parentSite()->url());
+		emit poolClicked(url.right(url.length() - 5).toInt(), m_image->parentSite()->url());
 	} else {
 		Page *p = new Page(m_profile, m_image->parentSite(), m_profile->getSites().values(), QStringList { "id:" + url }, 1, 1, QStringList(), false, this);
 		connect(p, &Page::finishedLoading, this, &ViewerWindow::openPoolId);

@@ -1,12 +1,12 @@
-import QtMultimedia 5.12
-import QtQuick 2.12
-import QtQuick.Controls 2.5
-import QtQuick.Layouts 1.12
+import QtMultimedia
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 ColumnLayout {
     property alias source: video.source
     property alias fillMode: video.fillMode
-    property alias autoPlay: video.autoPlay
+    property bool autoPlay // TODO QT6 property alias autoPlay: video.autoPlay
 
     onAutoPlayChanged: {
         if (autoPlay && video.playbackState != MediaPlayer.PlayingState) {
@@ -21,7 +21,7 @@ ColumnLayout {
 
         Layout.fillHeight: true
         Layout.fillWidth: true
-        notifyInterval: 100
+        // TODO QT6 notifyInterval: 100
         loops: MediaPlayer.Infinite
     }
 

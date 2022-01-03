@@ -1,7 +1,7 @@
-import Grabber 1.0
-import QtQuick 2.12
-import QtQuick.Controls 2.5
-import QtQuick.Controls.Material 2.12
+import Grabber
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
 
 SearchEdit {
     id: root

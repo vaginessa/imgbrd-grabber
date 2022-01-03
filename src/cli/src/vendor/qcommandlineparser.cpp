@@ -954,7 +954,7 @@ static QString wrapText(const QString &names, int longestOptionNameString, const
             const int numChars = breakAt - lineStart;
             if (lineStart > 0)
                 text += QString(indent, QLatin1Char(' '));
-			text += description.midRef(lineStart, numChars).toString() + nl;
+			text += description.mid(lineStart, numChars).toString() + nl;
             x = 0;
             lastBreakable = -1;
             lineStart = nextLineStart;

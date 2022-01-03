@@ -143,17 +143,18 @@ void FilenameExecutionVisitor::visitVariable(const QString &fullName, const QMap
 	bool clean = false;
 
 	// Convert value to a basic string using the given options
-	if (val.type() == QVariant::DateTime) {
+	const auto type = val.metaType().id();
+	if (type == QMetaType::QDateTime) {
 		res = variableToString(name, val.toDateTime(), options);
-	} else if (val.type() == QVariant::ULongLong) {
+	} else if (type == QMetaType::ULongLong) {
 		res = variableToString(name, val.toULongLong(), options);
-	} else if (val.type() == QVariant::LongLong) {
+	} else if (type == QMetaType::LongLong) {
 		res = variableToString(name, val.toLongLong(), options);
-	} else if (val.type() == QVariant::UInt) {
+	} else if (type == QMetaType::UInt) {
 		res = variableToString(name, val.toUInt(), options);
-	} else if (val.type() == QVariant::Int) {
+	} else if (type == QMetaType::Int) {
 		res = variableToString(name, val.toInt(), options);
-	} else if (val.type() == QVariant::StringList) {
+	} else if (type == QMetaType::QStringList) {
 		res = variableToString(name, val.toStringList(), options);
 		clean = true;
 	} else {

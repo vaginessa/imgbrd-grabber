@@ -2,6 +2,7 @@
 #define IMAGE_LOADER_H
 
 #include "loader.h"
+#include <QMetaType>
 #include <QQmlParserStatus>
 #include <QSharedPointer>
 #include <QString>

@@ -1,12 +1,12 @@
 #include "tag-filter-list.h"
-#include <QRegExp>
+#include <QRegularExpression>
 #include "tags/tag.h"
 
 
 void TagFilterList::add(const QString &word)
 {
 	if (word.contains('*')) {
-		m_starTags.append(QRegExp(word, Qt::CaseInsensitive, QRegExp::Wildcard));
+		m_starTags.append(QRegularExpression::fromWildcard(word, Qt::CaseInsensitive));
 	} else {
 		m_rawTags.append(word);
 	}
@@ -35,8 +35,8 @@ QList<Tag> TagFilterList::filterTags(const QList<Tag> &tags) const
 		}
 
 		bool removed = false;
-		for (const QRegExp &reg : m_starTags) {
-			if (reg.exactMatch(tag.text())) {
+		for (const QRegularExpression &reg : m_starTags) {
+			if (reg.match(tag.text()).hasMatch()) {
 				removed = true;
 				break;
 			}

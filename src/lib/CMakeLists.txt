@@ -1,12 +1,12 @@
 project(lib)
 
-find_package(Qt5 COMPONENTS Concurrent Gui Network NetworkAuth Qml Sql Xml REQUIRED) # Qt5::Gui required for some classes such as QPixmap
-set(QT_LIBRARIES Qt5::Concurrent Qt5::Core Qt5::Gui Qt5::Network Qt5::NetworkAuth Qt5::Qml Qt5::Sql Qt5::Xml)
+find_package(Qt6 COMPONENTS Concurrent Core Gui Network NetworkAuth Qml Sql Xml REQUIRED) # Qt6::Gui required for some classes such as QPixmap
+set(QT_LIBRARIES Qt6::Concurrent Qt6::Core Qt6::Gui Qt6::Network Qt6::NetworkAuth Qt6::Qml Qt6::Sql Qt6::Xml)
 
 # Android specials
 if(ANDROID)
-	find_package(Qt5 COMPONENTS AndroidExtras REQUIRED)
-	set(QT_LIBRARIES ${QT_LIBRARIES} Qt5::AndroidExtras)
+	#find_package(Qt6 COMPONENTS AndroidExtras REQUIRED)
+	#set(QT_LIBRARIES ${QT_LIBRARIES} Qt6::AndroidExtras)
 endif()
 
 file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.c")

@@ -1,6 +1,6 @@
 #include "meta-filter.h"
 #include <QDateTime>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QRegularExpression>
 #include <QStringBuilder>
 #include <QTimeZone>
@@ -170,20 +170,21 @@ QString MetaFilter::match(const QMap<QString, Token> &tokens, bool invert) const
 	}
 
 	const QVariant &token = tokens[m_type].value();
-	if (token.type() == QVariant::Int || token.type() == QVariant::UInt || token.type() == QVariant::DateTime || token.type() == QVariant::LongLong || token.type() == QVariant::ULongLong || m_type == "score") {
+	const auto type = token.metaType().id();
+	if (type == QMetaType::Int || type == QMetaType::UInt || type == QMetaType::QDateTime || type == QMetaType::LongLong || type == QMetaType::ULongLong || m_type == "score") {
 		int input = 0;
-		if (token.type() == QVariant::Int) {
+		if (type == QMetaType::Int) {
 			input = token.toInt();
-		} else if (token.type() == QVariant::UInt) {
+		} else if (type == QMetaType::UInt) {
 			input = token.toUInt();
-		} else if (token.type() == QVariant::LongLong) {
+		} else if (type == QMetaType::LongLong) {
 			input = token.toLongLong();
-		} else if (token.type() == QVariant::ULongLong) {
+		} else if (type == QMetaType::ULongLong) {
 			input = token.toULongLong();
 		}
 
 		bool cond;
-		if (token.type() == QVariant::DateTime) {
+		if (type == QMetaType::QDateTime) {
 			cond = rangeCheck(stringToDate, token.toDateTime(), m_val);
 		} else if (m_type == "score") {
 			cond = rangeCheck(stringToFloat, qRound(token.toFloat() * 1000), m_val);
@@ -216,8 +217,8 @@ QString MetaFilter::match(const QMap<QString, Token> &tokens, bool invert) const
 				return QObject::tr("image is \"%1\"").arg(val);
 			}
 		} else if (m_type == "source") {
-			QRegExp rx(m_val + "*", Qt::CaseInsensitive, QRegExp::Wildcard);
-			const bool cond = rx.exactMatch(token.toString());
+			const auto rx = QRegularExpression("^" + m_val, QRegularExpression::CaseInsensitiveOption);
+			const bool cond = rx.match(token.toString()).hasMatch();
 			if (!cond && !invert) {
 				return QObject::tr("image's source does not starts with \"%1\"").arg(m_val);
 			}

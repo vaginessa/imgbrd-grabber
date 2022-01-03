@@ -11,6 +11,8 @@
 #include "models/image.h"
 #include "models/site.h"
 
+Q_MOC_INCLUDE("downloader/image-save-result.h")
+
 
 namespace Ui
 {

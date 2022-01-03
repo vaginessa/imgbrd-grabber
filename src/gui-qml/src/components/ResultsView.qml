@@ -1,10 +1,10 @@
-import Grabber 1.0
-import QtQml 2.12
-import QtQuick 2.12
-import QtGraphicalEffects 1.0
-import QtQuick.Controls 2.5
-import QtQuick.Controls.Material 2.12
-import QtQuick.Layouts 1.12
+import Grabber
+import QtQml
+import QtQuick
+import Qt5Compat.GraphicalEffects
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
 
 import "../vendor"
 
